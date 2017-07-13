@@ -1,14 +1,18 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="p9Q-Ua-pHC">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.14"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Core Data Asynchronus Fetching-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="CoredataAsynchronousFetching" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -16,11 +20,103 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Do-PB-ORb" userLabel="Container View">
+                                <rect key="frame" x="16" y="72" width="343" height="587"/>
+                                <subviews>
+                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jhs-BV-9HV">
+                                        <rect key="frame" x="0.0" y="10" width="343" height="2"/>
+                                        <color key="progressTintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="trackTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </progressView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="uXQ-oD-9oD">
+                                        <rect key="frame" x="0.0" y="449" width="343" height="38"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8IC-08-NQQ">
+                                                <rect key="frame" x="0.0" y="0.0" width="114.5" height="38"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                <state key="normal" title="Insert"/>
+                                                <connections>
+                                                    <action selector="insertButtonAction" destination="BYZ-38-t0r" eventType="touchUpInside" id="XyT-NS-awi"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LPe-0E-2xA">
+                                                <rect key="frame" x="114.5" y="0.0" width="114" height="38"/>
+                                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="21"/>
+                                                <state key="normal" title="Fetch"/>
+                                                <connections>
+                                                    <action selector="fetchButtonAction" destination="BYZ-38-t0r" eventType="touchUpInside" id="RMf-6g-uka"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D1O-tL-VvV">
+                                                <rect key="frame" x="228.5" y="0.0" width="114.5" height="38"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                <state key="normal" title="Delete">
+                                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="deleteButtonAction" destination="BYZ-38-t0r" eventType="touchUpInside" id="L31-00-kM4"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="– – – –" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zkg-4g-igM">
+                                        <rect key="frame" x="20" y="122.5" width="303" height="42"/>
+                                        <color key="backgroundColor" white="1" alpha="0.60000002379999995" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                        <color key="textColor" red="0.98039215690000003" green="0.066666666669999999" blue="0.30980392159999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="uXQ-oD-9oD" firstAttribute="leading" secondItem="7Do-PB-ORb" secondAttribute="leading" id="2m0-or-ddv"/>
+                                    <constraint firstItem="zkg-4g-igM" firstAttribute="leading" secondItem="7Do-PB-ORb" secondAttribute="leading" constant="20" id="Eu8-SM-RDg"/>
+                                    <constraint firstItem="jhs-BV-9HV" firstAttribute="centerX" secondItem="7Do-PB-ORb" secondAttribute="centerX" id="Fzi-8g-a6R"/>
+                                    <constraint firstItem="jhs-BV-9HV" firstAttribute="width" secondItem="7Do-PB-ORb" secondAttribute="width" id="QkG-dT-fUZ"/>
+                                    <constraint firstItem="zkg-4g-igM" firstAttribute="top" secondItem="jhs-BV-9HV" secondAttribute="bottom" constant="110.5" id="RLO-5z-rxQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="zkg-4g-igM" secondAttribute="trailing" constant="20" id="bpc-hq-0DV"/>
+                                    <constraint firstAttribute="trailing" secondItem="uXQ-oD-9oD" secondAttribute="trailing" id="gNe-On-9RX"/>
+                                    <constraint firstAttribute="bottom" secondItem="uXQ-oD-9oD" secondAttribute="bottom" constant="100" id="qgI-hd-7Hy"/>
+                                    <constraint firstItem="jhs-BV-9HV" firstAttribute="top" secondItem="7Do-PB-ORb" secondAttribute="top" constant="10" id="ut9-u8-AHU"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="7Do-PB-ORb" secondAttribute="bottom" constant="8" id="IL7-Z0-x0L"/>
+                            <constraint firstItem="7Do-PB-ORb" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="Q6U-yS-Wpw"/>
+                            <constraint firstItem="7Do-PB-ORb" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="YaL-Yx-D9g"/>
+                            <constraint firstItem="7Do-PB-ORb" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="pSt-PP-hGQ"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Core Data Asynchronus Fetching" id="aEL-UU-2Zv"/>
+                    <connections>
+                        <outlet property="progressView" destination="jhs-BV-9HV" id="LxJ-uU-eg0"/>
+                        <outlet property="statusLabel" destination="zkg-4g-igM" id="qrK-yv-Fdo"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="479.19999999999999" y="131.78410794602701"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Tbl-Tc-dFA">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="p9Q-Ua-pHC" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="yfH-k5-vCe">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="GPX-Df-Ynp"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kMc-ip-Bpv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-297" y="123"/>
         </scene>
     </scenes>
 </document>
